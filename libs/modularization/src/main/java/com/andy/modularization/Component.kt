@@ -2,6 +2,7 @@ package com.andy.modularization
 
 import android.content.Context
 import androidx.annotation.MainThread
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.ViewModel
@@ -37,6 +38,10 @@ val Component.lifecycleScope: LifecycleCoroutineScope
  */
 val Component.applicationContext: Context
     get() = activity.applicationContext
+
+fun Component.getString(@StringRes resId: Int): String {
+    return activity.getString(resId)
+}
 
 /**
  * Abstract class that represents a component which mimics an Activity's lifecycle methods.

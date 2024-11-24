@@ -8,29 +8,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <FrameLayout
+    <include
         android:id="@+id/title_bar_content"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/color_deep_sky_blue"
-        app:layout_constraintTop_toTopOf="parent"
+        layout="@layout/layout_title_bar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/text_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/title"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
-
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        layout="@layout/content_main"
+        android:id="@+id/layout_content"
+        layout="@layout/layout_content_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_bar_content"
@@ -38,24 +25,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_bar_content" />
 
-    <FrameLayout
+    <include
         android:id="@+id/bottom_bar_content"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/color_gold"
+        layout="@layout/layout_bottom_bar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/text_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/bottom"
-            android:textSize="20sp"
-            android:textColor="@color/color_navy_blue"/>
-
-    </FrameLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
