@@ -1,5 +1,7 @@
 package com.andy.modularization
 
+import android.util.Log
+
 /**
  * Manages and provides component communication services for various holders (e.g., Activities, Fragments).
  *
@@ -11,7 +13,7 @@ package com.andy.modularization
 object ServiceManager {
     // Stores services for each holder. 
     // The outer map's key is the holder ID, and the inner map stores services keyed by their class names.
-    private val holderServices = mutableMapOf<String, MutableMap<String, Service>>()
+    val holderServices = mutableMapOf<String, MutableMap<String, Service>>()
 
     /**
      * Registers a new service for a specific holder.
@@ -25,7 +27,26 @@ object ServiceManager {
         val services = holderServices.getOrPut(holderId) { mutableMapOf() }
         // Register the service using its class name as the key
         services[service.javaClass.name] = service
+        Log.d("ServiceManager", "registerService() service " +
+                "for holder: $holderId, service.name: ${service.javaClass.name}")
     }
+
+    /**
+     * Registers a new service for a specific holder.
+     *
+     * @param holderId A unique identifier for the holder (e.g., Activity, Fragment).
+     * @param service The service instance to register.
+     */
+//    @JvmStatic
+//    inline fun <reified T : Service> registerService(holderId: String, service: T) {
+//        // Get or create the service map for the holder
+//        val services = holderServices.getOrPut(holderId) { mutableMapOf() }
+//        // Register the service using its class name as the key
+////        services[T::class.java.name] = service
+//        services[service.javaClass.name] = service
+//        Log.d("ServiceManager", "registerService() service " +
+//                "for holder: $holderId, service.name: ${T::class.java.name}")
+//    }
 
     /**
      * Unregisters a service associated with a specific holder.
@@ -54,6 +75,23 @@ object ServiceManager {
     }
 
     /**
+     * Retrieves the service instance associated with the specified `holderId`.
+     *
+     * This method expects the caller to pass the concrete implementation class of the service,
+     * not the service interface. For example, if you want to retrieve an instance of `TitleBar`,
+     * you should call `getService<TitleBar>(holderId)` rather than `getService<TitleBarService>(holderId)`.
+     *
+     * @param holderId A unique identifier for the holder.
+     * @return The service instance associated with the holder, or null if not found.
+     */
+    @JvmStatic
+    inline fun <reified T : Service> getService(holderId: String): T? {
+        Log.d("ServiceManager", "getService() for holder: " +
+                "$holderId, service.name: " + T::class.java.name)
+        return holderServices[holderId]?.get(T::class.java.name) as? T
+    }
+
+    /**
      * Releases all services registered for a specific holder.
      *
      * @param holderId A unique identifier for the holder.
@@ -61,7 +99,7 @@ object ServiceManager {
     @JvmStatic
     fun releaseHolderServices(holderId: String) {
         // Remove and clear all services associated with the holder
-        holderServices.remove(holderId)
+        holderServices.remove(holderId)?.clear()
     }
 
     /**

@@ -2,8 +2,10 @@ package com.andy.modules
 
 import androidx.appcompat.app.AppCompatActivity
 import com.andy.modularization.Component
+import com.andy.modularization.HolderIdProvider
 import com.andy.modularization.Service
 import com.andy.modularization.ServiceManager
+import com.andy.modularization.holderId
 import com.andy.modules.component.NoneUiComponent
 import com.andy.modules.databinding.ActivityMainBinding
 import com.andy.modules.ui.BottomBar
@@ -14,8 +16,6 @@ class MainComponentFactory(
     private val activity: AppCompatActivity,
     private val binding: ActivityMainBinding,
 ) : Component.ComponentFactory {
-
-    private val holderId = hashCode().toString()
     private val components = mutableListOf<Component>()
 
     override fun newComponents() {
@@ -28,7 +28,7 @@ class MainComponentFactory(
     private fun addComponent(component: Component) {
         components.add(component)
         if (component is Service) {
-            ServiceManager.registerService(holderId, component)
+            ServiceManager.registerService(component.holderId, component)
         }
     }
 
@@ -37,7 +37,9 @@ class MainComponentFactory(
     }
 
     override fun release() {
+        components.forEach {
+            ServiceManager.releaseHolderServices(it.holderId)
+        }
         components.clear()
-        ServiceManager.releaseHolderServices(holderId)
     }
 }

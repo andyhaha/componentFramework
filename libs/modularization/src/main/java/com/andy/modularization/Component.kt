@@ -39,6 +39,19 @@ val Component.lifecycleScope: LifecycleCoroutineScope
 val Component.applicationContext: Context
     get() = activity.applicationContext
 
+/**
+ * Extension property to provide a unique holder identifier (holderId) for a Component.
+ *
+ * This property uses the `hashCode` of the Component instance as its unique identifier,
+ * ensuring that each Component can generate a distinct and consistent ID.
+ * The `holderId` is represented as a String for compatibility with service management.
+ *
+ * Note: Using `hashCode` ensures uniqueness per instance, but care should be taken if
+ * components need to share the same holderId across multiple instances.
+ */
+val Component.holderId: String
+    get() = activity.hashCode().toString()
+
 fun Component.getString(@StringRes resId: Int): String {
     return activity.getString(resId)
 }

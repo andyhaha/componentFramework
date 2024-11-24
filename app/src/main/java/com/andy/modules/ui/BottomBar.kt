@@ -3,6 +3,7 @@ package com.andy.modules.ui
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.andy.modularization.Component
+import com.andy.modularization.Service
 import com.andy.modularization.getString
 import com.andy.modules.R
 import com.andy.modules.databinding.LayoutBottomBarBinding
@@ -10,7 +11,7 @@ import com.andy.modules.databinding.LayoutBottomBarBinding
 class BottomBar(
     override val activity: AppCompatActivity,
     private val binding: LayoutBottomBarBinding,
-) : Component() {
+) : Component(), BottomBarService {
 
     companion object {
         private const val TAG = "BottomBar"
@@ -40,4 +41,12 @@ class BottomBar(
     override fun onDestroy() {
         Log.d(TAG, "onDestroy: BottomBar destroyed")
     }
+
+    override fun sayHello(content: String) {
+        Log.d(TAG, "BottomBar received message: $content")
+    }
+}
+
+interface BottomBarService : Service {
+    fun sayHello(content: String)
 }
