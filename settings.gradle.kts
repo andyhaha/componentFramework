@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "modules"
 include(":app")
+include(":libs:modularization")
