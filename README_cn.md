@@ -1,39 +1,40 @@
-# Modularization Architecture Example
+# 模块化架构示例
 
-## Project Overview
+## 项目概述
 
-This project demonstrates a modularization architecture based on Kotlin and Android. By using modularization, we can split an app into multiple independent modules, each of which can either be UI-related or non-UI-related, depending on the requirements. Components communicate via Services, achieving decoupling and increasing code reusability.
+本项目展示了基于 Kotlin 和 Android 的模块化架构。通过使用模块化，我们可以将一个应用拆分成多个独立的模块，每个模块可以是与 UI 相关的或与非 UI 功能相关的，具体取决于需求。组件通过服务进行通信，实现解耦和提高代码复用性。
 
-This architecture supports dynamic loading and unloading of components across different Activities, while also allowing communication between components via Services for flexible management and extension.
+该架构支持不同 Activity 中组件的动态加载和卸载，同时允许组件之间通过服务进行通信，灵活管理和扩展。
 
-## Features
+## 特性
 
-- **UI Modularization**: Each component can be related to UI, such as `TitleBar`, `Content`, and `BottomBar`, or non-UI functionality.
-- **Service Communication**: Components communicate via Services, achieving decoupling.
-- **Dynamic Loading & Management**: Components can be dynamically loaded, initialized, and destroyed, with management via a unified factory.
-- **Activity Lifecycle Management**: Components manage their lifecycle based on the Activity lifecycle to avoid memory leaks and resource wastage.
-## Architecture Design
+- **UI 模块化**：每个组件可以是与 UI 相关的，例如 `TitleBar`、`Content` 和 `BottomBar`，也可以是非 UI 功能。
+- **服务通信**：组件之间通过服务进行通信，实现解耦。
+- **动态加载与管理**：组件可以动态加载、初始化和销毁，并通过统一的工厂进行管理。
+- **Activity 生命周期管理**：组件根据 Activity 生命周期来管理自身的生命周期，避免内存泄漏和资源浪费。
 
-### Core of Modularization Architecture
+## 架构设计
 
-- **Component Class**: Each component extends the `Component` class, which manages the lifecycle and binds the Activity and View.
-- **Factory Class**: The `ComponentFactory` class is used to create and manage all component instances, providing a unified interface for retrieving, registering, and destroying components.
-- **Service Manager**: The `ServiceManager` class provides a mechanism for communication between components using Services.
-- **MainActivityDelegate**: The `MainActivityDelegate` class manages the creation, lifecycle, and destruction of components via delegation.
+### 模块化架构的核心
 
-## How to Use
+- **组件类**：每个组件继承自 `Component` 类，该类管理组件的生命周期，并绑定 Activity 和 View。
+- **工厂类**：`ComponentFactory` 类用于创建和管理所有组件实例，提供统一的接口用于获取、注册和销毁组件。
+- **服务管理器**：`ServiceManager` 类提供组件之间通过服务进行通信的机制。
+- **MainActivityDelegate**：`MainActivityDelegate` 类通过委托方式管理组件的创建、生命周期和销毁。
 
-1. **Add Modules**: To add a new module, create a new class extending `Component` in the `modules/` directory.
-2. **Register Components**: Use the `ComponentFactory` to register and manage your components.
-3. **Service Communication**: To enable communication between components, use `ServiceManager` to send and receive messages.
-4. **Activity Integration**: Ensure that your components are integrated into the activity lifecycle through `MainActivityDelegate`.
+## 使用方式
 
-## License
+1. **添加模块**：要添加一个新模块，请在 `modules/` 目录中创建一个继承自 `Component` 的新类。
+2. **注册组件**：使用 `ComponentFactory` 来注册和管理您的组件。
+3. **服务通信**：要启用组件之间的通信，使用 `ServiceManager` 发送和接收消息。
+4. **集成 Activity**：确保您的组件通过 `MainActivityDelegate` 集成到 Activity 生命周期中。
 
-Copyright (c) [2024] [Andy]
+## 许可证
 
-Permission is hereby granted, free of charge, to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software, and to permit others to do so, subject to the following conditions:
+版权所有 (c) [2024] [Andy]
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the software.
+特此免费授予使用、复制、修改、合并、发布、分发、再许可和/或出售本软件的副本，以及允许他人这样做的权限，但须遵守以下条件：
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+上述版权声明和本许可声明应包含在本软件的所有副本或重要部分中。
+
+本软件按“原样”提供，不附任何明示或暗示的担保，包括但不限于适销性、特定用途的适用性和非侵权的担保。在任何情况下，作者或版权持有者均不对因使用本软件或与本软件有关的行为所引起的任何索赔、损害或其他责任负责。
