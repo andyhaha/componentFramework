@@ -2,7 +2,6 @@ package com.andy.modules
 
 import androidx.appcompat.app.AppCompatActivity
 import com.andy.modularization.Component
-import com.andy.modularization.HolderIdProvider
 import com.andy.modularization.Service
 import com.andy.modularization.ServiceManager
 import com.andy.modularization.holderId

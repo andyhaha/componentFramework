@@ -35,7 +35,7 @@ open class ActivityContainer(val activity: Activity) : Container {
      */
     override fun onStart() {
         components.forEach {
-            it.performResume()
+            it.performStart()
         }
     }
 
@@ -86,7 +86,8 @@ open class ActivityContainer(val activity: Activity) : Container {
      */
     override fun addComponent(component: Component) {
         components.add(component)
-        component.performCreate() // Initialize the component when it is added
+        // Initialize the component when it is added
+        component.performCreate()
     }
 
     /**
@@ -106,6 +107,7 @@ open class ActivityContainer(val activity: Activity) : Container {
         components.forEach {
             it.performDestroy()
         }
-        components.clear() // Clean up the components when the container is destroyed
+        // Clean up the components when the container is destroyed
+        components.clear()
     }
 }

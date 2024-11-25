@@ -6,13 +6,14 @@ import androidx.lifecycle.LifecycleOwner
 import com.andy.modularization.ActivityContainer
 import com.andy.modularization.ActivityLifeCycle
 import com.andy.modules.databinding.ActivityMainBinding
+import java.lang.ref.WeakReference
 
 class MainActivityDelegate(
     private val activity: MainActivity,
     private val binding: ActivityMainBinding,
 ) : ActivityLifeCycle {
     init {
-        activity.lifecycle.addObserver(InnerLifecycleObserver())
+        activity.lifecycle.addObserver(InnerLifecycleObserver(this))
     }
 
     private val roomContainer by lazy(LazyThreadSafetyMode.NONE) {
@@ -52,27 +53,28 @@ class MainActivityDelegate(
         componentFactory.release()
     }
 
-    inner class InnerLifecycleObserver : LifecycleEventObserver {
+    class InnerLifecycleObserver(delegate: MainActivityDelegate) : LifecycleEventObserver {
+        private val activityDelegate = WeakReference(delegate)
 
         override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
             when (event) {
                 Lifecycle.Event.ON_CREATE -> {
-                    onCreate()
+                    activityDelegate.get()?.onCreate()
                 }
                 Lifecycle.Event.ON_START -> {
-                    onStart()
+                    activityDelegate.get()?.onStart()
                 }
                 Lifecycle.Event.ON_RESUME -> {
-                    onResume()
+                    activityDelegate.get()?.onResume()
                 }
                 Lifecycle.Event.ON_PAUSE -> {
-                    onPause()
+                    activityDelegate.get()?.onPause()
                 }
                 Lifecycle.Event.ON_STOP -> {
-                    onStop()
+                    activityDelegate.get()?.onStop()
                 }
                 Lifecycle.Event.ON_DESTROY -> {
-                    onDestroy()
+                    activityDelegate.get()?.onDestroy()
                 }
                 else -> {
                     // Handle other lifecycle events here if needed

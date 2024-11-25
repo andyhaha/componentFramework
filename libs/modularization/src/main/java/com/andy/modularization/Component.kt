@@ -82,6 +82,14 @@ abstract class Component : ActivityLifeCycle {
     }
 
     /**
+     * This method simulates the onStart() lifecycle callback for the component.
+     * It should be called when the component is started.
+     */
+    fun performStart() {
+        onStart()
+    }
+
+    /**
      * This method simulates the onResume() lifecycle callback for the component.
      * It should be called when the component is resumed.
      */
