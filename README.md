@@ -1,5 +1,7 @@
 # Modularization Architecture Example
 
+[简体中文版说明 >>>](https://github.com/andyhaha/modules/blob/main/README_cn.md)
+
 ## Project Overview
 
 This project demonstrates a modularization architecture based on Kotlin and Android. By using modularization, we can split an app into multiple independent modules, each of which can either be UI-related or non-UI-related, depending on the requirements. Components communicate via Services, achieving decoupling and increasing code reusability.
