@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "modules"
+rootProject.name = "componentFramework"
 include(":app")
 include(":libs:modularization")
