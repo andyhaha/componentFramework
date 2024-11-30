@@ -1,5 +1,7 @@
 # Modularization Architecture Example
 
+![License](https://img.shields.io/badge/license-Apache%202.0-brightgreen)
+
 [简体中文版说明 >>>](https://github.com/andyhaha/modules/blob/main/README_cn.md)
 
 ## Project Overview
